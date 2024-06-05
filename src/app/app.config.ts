@@ -5,17 +5,16 @@ import { AuthConfig, OAuthService, provideOAuthClient } from 'angular-oauth2-oid
 import { provideHttpClient } from '@angular/common/http';
 
 export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8081/realms/realm',
-  tokenEndpoint: 'http://localhost:8081/realms/realm/protocol/openid-connect/token',
-  
-  redirectUri: window.location.origin,
-  clientId: 'module-app-id',
+  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/pool',
+  redirectUri: 'http://localhost:4200',
+  clientId: 'id',
   responseType: 'code',
-  scope: 'openid',
+  scope: 'openid email',
   showDebugInformation: true,
+  strictDiscoveryDocumentValidation: false
 };
 
-function initializeOAuth(oauthService: OAuthService): Promise<void> {
+ export function initializeOAuth(oauthService: OAuthService): Promise<void> {
   return new Promise((resolve) => {
     oauthService.configure(authCodeFlowConfig);
     oauthService.setupAutomaticSilentRefresh();
@@ -29,17 +28,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideOAuthClient(),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (oauthService: OAuthService) => {
-        return () => {
-          initializeOAuth(oauthService);
-        }
-      },
-      multi: true,
-      deps: [
-        OAuthService
-      ]
-    }
   ]
 };
