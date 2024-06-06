@@ -3,14 +3,16 @@
 </div>
 <div>
   <div>
+    <button (click)="getPublicText()">GET PUBLIC TEXT</button>
+  </div>
+  <div>
     <button (click)="getAuthenticatedText()">GET AUTHENTICATED TEXT</button>
   </div>
   <div>
     <button (click)="getAuthorizedText()">GET AUTHORIZED TEXT</button>
   </div>
   <div>
-    <label for="userPoolId">User Pool ID:</label>
-  
+    <button (click)="reset()">Reset</button>
     <button (click)="login()">Login</button>
   </div>
   <div>

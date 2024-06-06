@@ -5,9 +5,9 @@ import { AuthConfig, OAuthService, provideOAuthClient } from 'angular-oauth2-oid
 import { provideHttpClient } from '@angular/common/http';
 
 export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/pool',
+  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_IF4WO8MOB',
   redirectUri: 'http://localhost:4200',
-  clientId: 'id',
+  clientId: '13jc5t420sn4j9npvb2g2humgk',
   responseType: 'code',
   scope: 'openid email',
   showDebugInformation: true,

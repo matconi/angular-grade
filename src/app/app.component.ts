@@ -28,15 +28,32 @@ export class AppComponent {
     this.oauthService.logOut();
   }
 
+  reset() {
+    this.helloText = 'sggh';
+  }
+
+  getPublicText() {
+    this.httpClient.get<{ message: string }>('http://localhost:8080/hello', {
+      headers: this.oauthService.getAccessToken() != null ? {
+        'Authorization': `Bearer ${this.oauthService.getAccessToken()}`
+      } : {}
+    }).subscribe((result: any) => {
+      this.helloText = "Vem";
+    }, (error) => {
+      this.helloText = `Vem bosta: ${error.message}`;
+    });
+  }
+
   getAuthenticatedText() {
+    console.log(this.oauthService.getAccessToken());
     this.httpClient.get<{ message: string }>('http://localhost:8080/hello/authenticated', {
       headers: this.oauthService.getAccessToken() != null ? {
         'Authorization': `Bearer ${this.oauthService.getAccessToken()}`
       } : {}
     }).subscribe((result: any) => {
-      this.helloText = "Vem bom";
+      this.helloText = "Vem";
     }, (error) => {
-      this.helloText = `Vem bosta: ${error.message})}`;
+      this.helloText = `Vem bosta: ${error.message}`;
     });
   }
   getAuthorizedText() {
